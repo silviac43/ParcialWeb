@@ -1,0 +1,207 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parcial</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <script src="{% static 'verificacion.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: #e8ecef;
+            overflow: hidden;
+        }
+
+        .fa {
+            color: #747779;
+            background: white;
+        }
+
+        .flag {
+            color: #ffffff;
+            background: #27a844;
+        }
+
+        #login .container #login-row #login-column #login-box {
+            margin-top: 20px;
+            max-width: 600px;
+            height: 700px;
+            border: 1px solid #d9dadc;
+            background-color: #ffffff;
+        }
+
+        #login .container #login-row #login-column #login-box #login-form {
+            padding: 20px;
+        }
+
+        #login .container #login-row #login-column #login-box #login-form #register-link {
+            margin-top: -5px;
+        }
+
+        #titulo {
+            font-family: 'Source Sans Pro';
+            margin-top: 120px;
+        }
+
+        #bandera {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .container #cont {
+            height: 100%;
+        }
+
+        .act {
+            display: none;
+        }
+
+        .act.show {
+            display: block;
+        }
+
+        .margin-lr {
+            margin-left: 20px;
+            margin-right: 5px;
+        }
+
+        .ajuste {
+            margin-left: 5px;
+        }
+
+        .inp {
+            max-width: 100px;
+        }
+
+        .celdaedit {
+            color: blue;
+            cursor: pointer;
+        }
+
+        .celdaedit.clicked {
+            color: gray;
+        }
+
+        .stretch-button {
+            display: inline-block;
+            width: 200px;
+            height: 100%;
+            padding: 5px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="login">
+        <h3 class="text-center" id="titulo"> <a>Web</a>Developer</h3>
+        <div class="container">
+            <div class="wrapper">
+                <div id="login-row" class="row justify-content-center align-items-center">
+                    <div id="login-column" class="col-md-6">
+                        <div id="login-box" class="col-md-12">
+                            <form>
+                                <br>
+                                <p class="text-center">
+                                    <font color="#676767">Formulario de afiliación</font>
+                                </p>
+                                <br>
+                                <div class="form-group input-group">
+                                    <input name="" class="form-control" placeholder="Nombre completo" type="text"
+                                        id="nombre">
+                                    <div class="input-group-prepend">
+                                        <span style="background-color:white" class="input-group-text"> <i
+                                                class="fa fa-user"></i> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group input-group">
+                                    <input name="" class="form-control" placeholder="Email" type="text" id="email">
+                                    <div class="input-group-prepend">
+                                        <span style="background-color:white" class="input-group-text"> <i
+                                                class="fa fa-envelope"></i> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group input-group">
+                                    <input name="" class="form-control" placeholder="Telefono" type="text"
+                                        id="telefono">
+                                    <div class="input-group-prepend">
+                                        <span style="background-color:white" class="input-group-text"> <i
+                                                class="fa fa-phone"></i> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group input-group">
+                                    <input name="nom" class="form-control" type="text" id="nom">
+                                    <button type="button" class="btn btn-outline-success" onclick="agregarFila()"
+                                        id="limpiar">Gustos</button>
+                                </div>
+                                <div class="container" id="cont">
+                                    <div class='row'>
+                                        <div class="col-2">
+                                            <button type="button" id="bandera"
+                                                class="btn btn-success btn-lg stretch-button"><i
+                                                    class="flag fa fa-flag" style="font-size:40px"></i></button>
+                                        </div>
+                                        <div class="col-10">
+                                            <table id='gustos' class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Gusto</th>
+                                                        <th scope="col">%</th>
+                                                        <th scope="col">Edit</a></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div id="actualizacion" class="row act">
+                                        <div>
+                                            <p class="ajuste">Pulse Aceptar para guardar los cambios o Cancelar para
+                                                anularlos.</p>
+                                        </div>
+                                        <div class="row"><button type="button" id="boton"
+                                                class="btn btn-outline-secondary margin-lr"
+                                                onmouseover="guardado()">Aceptar</button> <button type="button"
+                                                class="btn btn-outline-danger"
+                                                onClick="window.location.reload();">Cancelar</button></div>
+                                    </div>
+                                </div>
+                                <br>
+                                <p><a href="">Ir al Site de P web</a> </p>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
